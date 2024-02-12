@@ -238,7 +238,8 @@ class KinematicObservation(ObservationType):
         # Add nearby traffic
         close_vehicles = self.env.road.close_objects_to(
             self.observer_vehicle,
-            self.env.PERCEPTION_DISTANCE,
+            # self.env.PERCEPTION_DISTANCE,
+            1000,
             count=self.vehicles_count - 1,
             see_behind=self.see_behind,
             sort=self.order == "sorted",

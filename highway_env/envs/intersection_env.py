@@ -260,27 +260,37 @@ class IntersectionEnv(AbstractEnv):
         vehicle_type.COMFORT_ACC_MAX = 6
         vehicle_type.COMFORT_ACC_MIN = -3
 
-        # Random vehicles
-        simulation_steps = 3
-        for t in range(n_vehicles - 1):
-            self._spawn_vehicle(np.linspace(0, 80, n_vehicles)[t])
-        for _ in range(simulation_steps):
-            [
-                (
-                    self.road.act(),
-                    self.road.step(1 / self.config["simulation_frequency"]),
-                )
-                for _ in range(self.config["simulation_frequency"])
-            ]
+        # # Random vehicles
+        # simulation_steps = 3
+        # for t in range(n_vehicles - 1):
+        #     self._spawn_vehicle(np.linspace(0, 80, n_vehicles)[t])
+        # for _ in range(simulation_steps):
+        #     [
+        #         (
+        #             self.road.act(),
+        #             self.road.step(1 / self.config["simulation_frequency"]),
+        #         )
+        #         for _ in range(self.config["simulation_frequency"])
+        #     ]
 
         # Challenger vehicle
         self._spawn_vehicle(
-            60,
+            32,
             spawn_probability=1,
             go_straight=True,
-            position_deviation=0.1,
+            position_deviation=0.0,
             speed_deviation=0,
+            route=np.array([3,2])
         )
+
+        # self._spawn_vehicle(
+        #     40,
+        #     spawn_probability=1,
+        #     go_straight=True,
+        #     position_deviation=0.0,
+        #     speed_deviation=0,
+        #     route=np.array([0,2])
+        # )
 
         # Controlled vehicles
         self.controlled_vehicles = []
@@ -293,7 +303,7 @@ class IntersectionEnv(AbstractEnv):
             )
             ego_vehicle = self.action_type.vehicle_class(
                 self.road,
-                ego_lane.position(60 + 5 * self.np_random.normal(1), 0),
+                ego_lane.position(60 + 5 * 0, 0),
                 speed=ego_lane.speed_limit,
                 heading=ego_lane.heading_at(60),
             )
@@ -320,30 +330,31 @@ class IntersectionEnv(AbstractEnv):
     def _spawn_vehicle(
         self,
         longitudinal: float = 0,
-        position_deviation: float = 1.0,
-        speed_deviation: float = 1.0,
-        spawn_probability: float = 0.6,
+        position_deviation: float = 0.0,
+        speed_deviation: float = 0.0,
+        spawn_probability: float = 1.0,
         go_straight: bool = False,
+        route = np.array([3,2])
     ) -> None:
         if self.np_random.uniform() > spawn_probability:
             return
 
-        route = self.np_random.choice(range(4), size=2, replace=False)
+        # route = self.np_random.choice(range(4), size=2, replace=False)
         route[1] = (route[0] + 2) % 4 if go_straight else route[1]
         vehicle_type = utils.class_from_path(self.config["other_vehicles_type"])
         vehicle = vehicle_type.make_on_lane(
             self.road,
             ("o" + str(route[0]), "ir" + str(route[0]), 0),
             longitudinal=(
-                longitudinal + 5 + self.np_random.normal() * position_deviation
+                longitudinal + 5 + 0 * position_deviation
             ),
-            speed=8 + self.np_random.normal() * speed_deviation,
+            speed=8 + 0 * speed_deviation,
         )
         for v in self.road.vehicles:
             if np.linalg.norm(v.position - vehicle.position) < 15:
                 return
         vehicle.plan_route_to("o" + str(route[1]))
-        vehicle.randomize_behavior()
+        # vehicle.randomize_behavior()
         self.road.vehicles.append(vehicle)
         return vehicle
 

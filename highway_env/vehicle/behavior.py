@@ -36,7 +36,7 @@ class IDMVehicle(ControlledVehicle):
     DELTA = 4.0  # []
     """Exponent of the velocity term."""
 
-    DELTA_RANGE = [3.5, 4.5]
+    DELTA_RANGE = [4.0, 4.0]
     """Range of delta when chosen randomly."""
 
     # Lateral policy parameters
