@@ -280,7 +280,7 @@ class IntersectionEnv(AbstractEnv):
             go_straight=True,
             position_deviation=0.0,
             speed_deviation=0,
-            route=np.array([3,2])
+            route=np.array([3,0])
         )
 
         # self._spawn_vehicle(
