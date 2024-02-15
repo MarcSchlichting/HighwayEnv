@@ -266,8 +266,8 @@ class MDPVehicle(ControlledVehicle):
         heading: float = 0,
         speed: float = 0,
         target_lane_index: Optional[LaneIndex] = None,
-        target_speed: Optional[float] = None,
-        target_speeds: Optional[Vector] = None,
+        target_speed: Optional[float] = 3.0,
+        target_speeds: Optional[Vector] = [2.0,3.0,4.0],
         route: Optional[Route] = None,
     ) -> None:
         """

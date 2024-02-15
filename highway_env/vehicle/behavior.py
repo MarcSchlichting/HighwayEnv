@@ -52,11 +52,12 @@ class IDMVehicle(ControlledVehicle):
         heading: float = 0,
         speed: float = 0,
         target_lane_index: int = None,
-        target_speed: float = None,
+        target_speed: float = 3.0,
         route: Route = None,
         enable_lane_change: bool = True,
         timer: float = None,
     ):
+
         super().__init__(
             road, position, heading, speed, target_lane_index, target_speed, route
         )

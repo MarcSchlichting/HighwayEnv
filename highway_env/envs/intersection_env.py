@@ -275,12 +275,12 @@ class IntersectionEnv(AbstractEnv):
 
         # Challenger vehicle
         self._spawn_vehicle(
-            32,
+            75,
             spawn_probability=1,
-            go_straight=True,
+            go_straight=False,
             position_deviation=0.0,
             speed_deviation=0,
-            route=np.array([3,0])
+            route=np.array([1,2])
         )
 
         # self._spawn_vehicle(
