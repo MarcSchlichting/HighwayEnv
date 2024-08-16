@@ -1,5 +1,14 @@
 # highway-env
 
+## Ego Vehicle Behavior Constants
+md_crit = 0.1
+tma_crit = 2.0
+origin_value = -1
+alpha = -origin_value/md_crit
+beta = -origin_value/tma_crit
+gamma = origin_value
+target_speed = 4.0
+
 [![build](https://github.com/eleurent/highway-env/workflows/build/badge.svg)](https://github.com/eleurent/highway-env/actions?query=workflow%3Abuild)
 [![Documentation Status](https://github.com/Farama-Foundation/HighwayEnv/actions/workflows/build-docs-dev.yml/badge.svg)](https://farama-foundation.github.io/HighwayEnv/)
 [![Downloads](https://img.shields.io/pypi/dm/highway-env)](https://pypi.org/project/highway-env/)
